@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define int long long int
+#define MOD 1000000007
+#define pb push_back
+#define pii pair<int,int>
+#define mp make_pair
+
+int dx4[4] = {0, 1, 0, -1};
+int dy4[4] = {1, 0, -1, 0};
+int dy8[8] = {1, 1, 1, 0, -1, -1, -1, 0};
+int dx8[8] = {-1, 0, 1, 1, 1, 0, -1, -1};
+
+int cal(int x){
+    return ((x*(x+1))/2);
+}
+
+int helper(int a, int b){
+
+    int a1 = a*a*cal(b) - cal(a)*cal(b) - a*a*b + b*cal(a);
+    int a2 = b*b*cal(a) - a*b*b - cal(a)*cal(b) + a*cal(b);
+    return ((a1+a2)/2) ;
+}
+
+int32_t main(){
+ 
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+ 
+    #ifndef ONLINE_JUDGE
+         freopen("input.txt",  "r",  stdin);
+         freopen("output.txt", "w", stdout);
+    #endif
+
+    int a, b;
+    cin >> a >> b;
+    int x = 1;
+    while(a!=0 || b!=0){
+
+        int ans = helper(a,b);
+        cout << "Case " << x << ": " << ans << '\n';
+        cin >> a >> b;
+        x++;
+    }   
+    
+    return 0;
+}
