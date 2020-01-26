@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define int long long int
+#define MOD 1000000007
+#define pb push_back
+#define pii pair<int,int>
+#define mp make_pair
+
+int dx4[4] = {0, 1, 0, -1};
+int dy4[4] = {1, 0, -1, 0};
+int dy8[8] = {1, 1, 1, 0, -1, -1, -1, 0};
+int dx8[8] = {-1, 0, 1, 1, 1, 0, -1, -1};
+
+void solve(double cow, double car, double show){
+
+    double ans = 0;
+    double tot = cow+car;
+
+    //choosing cow                      choosing car
+    ans = (cow/tot)*(car/(tot-show-1)) + (car/tot)*(car-1)/(tot-show-1);
+    cout << std::fixed << setprecision(5) << ans << '\n';
+
+
+}
+
+int32_t main(){
+ 
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+ 
+    #ifndef ONLINE_JUDGE
+         freopen("input.txt",  "r",  stdin);
+         freopen("output.txt", "w", stdout);
+    #endif
+
+    double cow, car, show;
+
+    while(cin >> cow >> car >> show){
+        solve(cow, car, show);
+    } 
+    
+    return 0;
+}
