@@ -1,0 +1,109 @@
+/*
+DIJKSTRA's
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+#define MOD 1000000007
+#define pb push_back
+#define pii pair<int,int>
+#define mp make_pair
+
+int dx4[4] = {0, 1, 0, -1};
+int dy4[4] = {1, 0, -1, 0};
+int dx8[8] = {-1, -1, 0, 1, 1,  1,  0, -1};
+int dy8[8] = {0 ,  1, 1, 1, 0, -1, -1, -1};
+
+struct trip{
+    int x;
+    int y;
+    int ans;
+};
+class comp{
+public:
+    bool operator()(trip a, trip b){
+        return a.ans > b.ans;
+    }
+};
+
+int r, c;
+string arr[1001];
+int dis[1001][1001];
+
+int solve(string arr[], pii s, pii d){
+
+    trip pehla;
+    pehla.x = s.first;
+    pehla.y = s.second;
+    pehla.ans = 0;
+    priority_queue<trip, vector<trip>, comp> pq;
+    pq.push(pehla);
+
+    for(int i=1; i<=r; i++) {
+        for(int j=1; j<=c; j++) 
+            dis[i][j] = INT_MAX;
+    }
+
+    dis[s.first][s.second] = 0;
+
+    while(pq.size()>0){
+        trip curr = pq.top();
+        pq.pop();
+        // cout << curr.x << " " << curr.y << " " << d.first << " " << d.second << " " << curr.ans << endl;
+        if((curr.x == d.first) && (curr.y == d.second)){
+            // cout << "test";
+            return curr.ans;
+        }
+        else{
+            for(int i=0; i<8; i++){
+                int nx = curr.x+dx8[i], ny = curr.y+dy8[i];
+                if(nx>0 && nx<=r && ny>0 && ny<=c){
+                    // vis[nx][ny] = 1;
+                    trip newla;
+                    newla.x = nx;
+                    newla.y = ny;
+                    newla.ans = curr.ans;
+                    if(i!=(arr[curr.x][curr.y]-'0')) newla.ans++;
+                    // if(nx == 1 && ny == 8) cout << newla.ans << endl;
+                    if(newla.ans < dis[nx][ny]){
+                        dis[nx][ny] = newla.ans;
+                        pq.push(newla);
+                    }
+                }
+            }
+        } 
+    }
+
+
+}
+
+int32_t main(){
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt",  "r",  stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+
+    cin >> r >> c;
+
+    for(int i=1; i<=r; i++){
+        cin >> arr[i];
+        arr[i] = " "+arr[i];
+    }
+
+    int n;
+    cin >> n;
+
+    for(int i=0; i<n; i++){
+        int sr, sc, dr, dc;
+        cin >> sr >> sc >> dr >> dc;
+        int ans = solve(arr, mp(sr,sc), mp(dr,dc));
+        cout << ans << '\n';
+    }
+    
+    return 0;
+}
